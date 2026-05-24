@@ -120,11 +120,29 @@ dependencies {
   "ksp"(libs.moshi.kotlin.codegen)
 }
 
+val rootDirFile = rootDir
+
 tasks.register<Copy>("copyApk") {
   dependsOn("assembleDebug")
   from("build/outputs/apk/debug")
   include("app-debug.apk")
-  into("${rootDir}/version")
+  into(File(rootDirFile, "version"))
   rename("app-debug.apk", "Float-Volume-v2.0.0.apk")
 }
 
+afterEvaluate {
+  tasks.findByName("assembleDebug")?.finalizedBy("copyApk")
+}
+
+tasks.register("listApks") {
+  dependsOn("assembleDebug")
+  val rootDirectory = rootDir
+  doLast {
+    println("--- LISTING ALL APK FILES IN PROJECT ---")
+    rootDirectory.walkTopDown().forEach { file ->
+      if (file.name.endsWith(".apk")) {
+        println("Found APK: ${file.absolutePath} (Size: ${file.length() / 1024 / 1024.0} MB - ${file.length()} bytes)")
+      }
+    }
+  }
+}
