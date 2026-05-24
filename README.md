@@ -43,9 +43,9 @@ Banyak pengguna Android menghadapi masalah tombol fisik volume yang rusak atau a
 ---
 
 ## 📱 Foto Preview & Tampilan Antarmuka (Screenshots)
- 
+
 Berikut preview antarmuka aplikasi Float Volume dengan rasio aspek layar 9:16:
- 
+
 | Tampilan Utama (Dark M3 Mode) | Desain Bersih & Elegan |
 | :---: | :---: |
 | <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=350&q=80" width="280px" alt="Splash Screen Mockup" /> | <img src="https://images.unsplash.com/photo-1618005198143-d366bc9b79be?auto=format&fit=crop&w=350&q=80" width="280px" alt="Main UI Screen Mockup" /> |
@@ -193,16 +193,6 @@ cd Float-Volume-10
 ## 🏷️ System Version
 * **Active Version**: `v2.0.0`
 * **Target OS level**: Android 7.0 (API level 24) up to Android 15 (API level 36)
-
----
-
-## 💖 Dukung Proyek Ini (Donation & Support)
-Jika aplikasi ini bermanfaat bagi Anda, dukung pengembangannya melalui alamat berikut:
-
-* **EVM (ETH/BSC/Polygon/etc.)**: `0x54e18F0345a099D9FE6dd0576bb1699733c44735`
-* **BTC**: `bc1q7g5whvwjvrh7mtuap2tu7qh3tyyhvls36cp7fs`
-
-Terima kasih banyak atas dukungan Anda! / Thank you very much for your support! 💜
 
 ---
 
