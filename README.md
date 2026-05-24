@@ -65,6 +65,7 @@ Berikut preview antarmuka aplikasi Float Volume dengan rasio aspek layar 9:16:
 Anda dapat langsung mengunduh dan memasang aplikasi Float Volume versi final yang siap pakai di ponsel Android Anda:
 
 💾 **[Unduh Float-Volume-v2.0.0.apk (Direct Download)](./version/Float-Volume-v2.0.0.apk)**  
+📂 **[Unduh via Google Drive (Mirror Link)](https://drive.google.com/drive/folders/10iv-r-W9YZWcAzwDBTvLrRjX0dMo4pkB?usp=drive_link)**  
 *(Pastikan perizinan pemasangan APK dari sumber tidak dikenal telah diizinkan).*
 
 ---
@@ -149,6 +150,7 @@ Many Android users experience broken, soft, or damaged physical volume buttons. 
 Instantly retrieve the compiled application package block:
 
 💾 **[Download Float-Volume-v2.0.0.apk (Direct Installer link)](./version/Float-Volume-v2.0.0.apk)**  
+📂 **[Download via Google Drive (Mirror Link)](https://drive.google.com/drive/folders/10iv-r-W9YZWcAzwDBTvLrRjX0dMo4pkB?usp=drive_link)**  
 *(Enable 'Unset Sources / External App Installations' in your security tab to install).*
 
 ---
