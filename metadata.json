@@ -1,0 +1,6 @@
+{
+  "name": "Float Volume",
+  "description": "Ad-free persistent floating volume control widget that draws over other apps.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

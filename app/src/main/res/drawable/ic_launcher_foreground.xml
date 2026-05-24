@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    
+    <group
+        android:scaleX="0.72"
+        android:scaleY="0.72"
+        android:pivotX="256"
+        android:pivotY="256">
+        
+        <!-- Dashed / patterned outer representation of the volume track -->
+        <path
+            android:pathData="M 256,76 A 180,180 0 1,1 255.9,76"
+            android:fillColor="#00000000"
+            android:strokeColor="#49454F"
+            android:strokeWidth="12"
+            android:strokeAlpha="0.6" />
+            
+        <!-- Precise high-fidelity rendition of the central volume path -->
+        <path
+            android:pathData="M160,170 L340,170 M160,245 L290,245 M160,160 L160,280 Q160,330 190,360 L256,410 L322,360 Q352,330 352,280 L352,160"
+            android:fillColor="#00000000"
+            android:strokeColor="#D0BCFF"
+            android:strokeWidth="34"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+            
+        <!-- Elegant focal highlight dot representing the sliding state tracker -->
+        <path
+            android:pathData="M 352,160 m -22,0 a 22,22 0 1,1 44,0 a 22,22 0 1,1 -44,0"
+            android:fillColor="#E6DFF3" />
+            
+    </group>
+</vector>
