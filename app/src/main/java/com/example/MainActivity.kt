@@ -366,7 +366,7 @@ fun DashboardScreen(
             ) {
                 Column {
                     Text(
-                        text = "STATUS LAYANAN",
+                        text = "STATUS GELEMBUNG",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Medium,
                         letterSpacing = 1.sp,
@@ -374,7 +374,7 @@ fun DashboardScreen(
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = if (isServiceRunning) "Aktif" else "Berhenti",
+                        text = if (isServiceRunning) "Aktif" else "Nonaktif",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -414,7 +414,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Mixer Level (STREAM_MUSIC)",
+                        text = "Volume Aliran Musik",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -469,7 +469,7 @@ fun DashboardScreen(
                 }
                 
                 Text(
-                    text = "Sinkronisasi langsung dengan aliran suara system default.",
+                    text = "Tersinkronisasi penuh dengan volume media default ponsel Anda.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -495,7 +495,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Ukuran Lingkaran Melayang",
+                        text = "Ukuran Gelembung Melayang",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -521,7 +521,7 @@ fun DashboardScreen(
                 )
 
                 Text(
-                    text = "Sesuaikan ukuran lingkaran melayang di layar agar lebih pas dan nyaman digunakankan.",
+                    text = "Sesuaikan diameter gelembung melayang agar pas dan nyaman saat Anda gunakan.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -547,7 +547,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Transparansi Lingkaran Melayang",
+                        text = "Transparansi Gelembung Melayang",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -573,7 +573,7 @@ fun DashboardScreen(
                 )
 
                 Text(
-                    text = "Sesuaikan tingkat transparansi tombol melayang (10% - 100%) agar tersamar sempurna di layar Anda.",
+                    text = "Atur transparansi gelembung (10% - 100%) agar menyatu secara alami dengan wallpaper layar Anda.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -595,7 +595,7 @@ fun DashboardScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "AKSES DAN IZIN SYSTEM",
+                    text = "AKSES & PERIZINAN SISTEM",
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp,
@@ -610,13 +610,13 @@ fun DashboardScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Tampil Di Atas Aplikasi Lain",
+                            text = "Tampilkan di Atas Aplikasi Lain",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFFE6E1E5)
                         )
                         Text(
-                            text = "Diperlukan untuk menampilkan tombol lingkaran melayang.",
+                            text = "Diperlukan untuk memunculkan gelembung melayang di atas aplikasi lain.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFFCAC4D0),
                             fontSize = 11.sp
@@ -664,13 +664,13 @@ fun DashboardScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Layanan Latar Depan (Service)",
+                            text = "Sistem Latar Belakang (Service)",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFFE6E1E5)
                         )
                         Text(
-                            text = "Memastikan tombol melayang tetap aktif berjalan di sistem.",
+                            text = "Menjaga gelembung melayang tetap siaga melayani Anda setiap saat.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFFCAC4D0),
                             fontSize = 11.sp
@@ -724,7 +724,7 @@ fun DashboardScreen(
                                 color = Color(0xFFE6E1E5)
                             )
                             Text(
-                                text = "Diperlukan untuk menampilkan kontrol di baris notifikasi.",
+                                text = "Diperlukan untuk memunculkan panel kontrol cepat pada laci notifikasi.",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color(0xFFCAC4D0),
                                 fontSize = 11.sp
@@ -788,7 +788,7 @@ fun DashboardScreen(
                         tint = Color(0xFFD0BCFF)
                     )
                     Text(
-                        text = "Petunjuk Penggunaan Tombol",
+                        text = "Panduan Gestur Gelembung",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFE6E1E5)
@@ -796,11 +796,11 @@ fun DashboardScreen(
                 }
 
                 val tips = listOf(
-                    "<b>Geser Circle</b>: Sentuh lalu seret lingkaran melayang ke sudut mana pun di layar sesuai keinginan Anda.",
-                    "<b>Ketuk Sekali</b>: Menampilkan kontrol widget pengatur suara bawaan (default HP) di layar.",
-                    "<b>Ketuk Dua Kali</b>: Senyap (Mute) atau bunyikan kembali (Unmute) aliran suara default HP secara instan.",
-                    "<b>Tekan Lama (0.5s)</b>: Membuka dashboard utama Float Volume secara instan dari mana saja.",
-                    "<b>Redup Otomatis</b>: Diamkan selama 5 detik untuk meredupkan lingkaran ke 30% dari transparansi aktif Anda secara proporsional."
+                    "<b>Geser Gelembung</b>: Sentuh dan geser lingkaran melayang ke posisi mana pun di layar Anda.",
+                    "<b>Ketuk Sekali</b>: Memunculkan widget pengatur volume default bawaan ponsel Anda.",
+                    "<b>Ketuk Dua Kali</b>: Membisukan (Mute) atau membunyikan kembali (Unmute) suara ponsel seketika.",
+                    "<b>Tekan Lama (0.5s)</b>: Membuka kembali menu pengaturan utama aplikasi ini dari layar mana saja.",
+                    "<b>Redup Otomatis</b>: Gelembung akan meredup hingga 30% dari keburaman utama jika didiamkan selama 5 detik agar tersamar sempurna."
                 )
 
                 tips.forEach { htmlText ->

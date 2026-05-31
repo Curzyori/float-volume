@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Float Volume</string>
-    <string name="permission_overlay_title">Tampil di Atas Aplikasi Lain</string>
-    <string name="permission_overlay_desc">Izin ini memungkinkan tombol melayang Float Volume tetap berada di atas layar aktif mana pun untuk penyesuaian volume sistem secara instan.</string>
+    <string name="permission_overlay_title">Tampilkan di Atas Aplikasi Lain</string>
+    <string name="permission_overlay_desc">Izinkan tombol melayang Float Volume tetap siaga di atas layar aktif mana pun agar Anda dapat menyesuaikan volume sistem secara instan.</string>
     <string name="permission_notification_title">Kirim Notifikasi</string>
-    <string name="permission_notification_desc">Diperlukan untuk menampilkan status layanan latar depan yang persisten agar sistem operasi tidak menghentikan tombol melayang secara paksa.</string>
-    <string name="start_service">Aktifkan Tombol Melayang</string>
-    <string name="stop_service">Nonaktifkan Tombol Melayang</string>
+    <string name="permission_notification_desc">Diperlukan untuk menjaga keaktifan layanan tombol melayang di latar belakang agar tidak ditutup secara paksa oleh sistem.</string>
+    <string name="start_service">Aktifkan Gelembung Melayang</string>
+    <string name="stop_service">Nonaktifkan Gelembung Melayang</string>
     <string name="service_running_channel_name">Saluran Layanan Float Volume</string>
     <string name="service_notification_title">Float Volume</string>
-    <string name="service_notification_desc">Tombol melayang persisten sedang aktif. Sentuh untuk menyesuaikan volume.</string>
+    <string name="service_notification_desc">Tombol melayang siaga aktif. Ketuk untuk mengatur volume suara.</string>
     <string name="grant_permission">Izinkan Akses</string>
     <string name="permission_granted">Akses Diizinkan</string>
 </resources>
