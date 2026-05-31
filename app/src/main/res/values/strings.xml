@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Float Volume</string>
-    <string name="permission_overlay_title">Draw Over Other Apps</string>
-    <string name="permission_overlay_desc">This permission allows the floating volume icon to dwell persistently over any active screen for instant system volume adjustment.</string>
-    <string name="permission_notification_title">Post Notifications</string>
-    <string name="permission_notification_desc">Required to display a high-priority, persistent foreground task status to prevent the operating system from terminating the floating controller.</string>
-    <string name="start_service">Enable Floating Control</string>
-    <string name="stop_service">Disable Floating Control</string>
-    <string name="service_running_channel_name">Float Volume Service Channel</string>
-    <string name="service_notification_title">Float Volume Control</string>
-    <string name="service_notification_desc">Persistent floating bubble is active. Touch to adjust volume instantly.</string>
-    <string name="grant_permission">Grant Permission</string>
-    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_overlay_title">Tampil di Atas Aplikasi Lain</string>
+    <string name="permission_overlay_desc">Izin ini memungkinkan tombol melayang Float Volume tetap berada di atas layar aktif mana pun untuk penyesuaian volume sistem secara instan.</string>
+    <string name="permission_notification_title">Kirim Notifikasi</string>
+    <string name="permission_notification_desc">Diperlukan untuk menampilkan status layanan latar depan yang persisten agar sistem operasi tidak menghentikan tombol melayang secara paksa.</string>
+    <string name="start_service">Aktifkan Tombol Melayang</string>
+    <string name="stop_service">Nonaktifkan Tombol Melayang</string>
+    <string name="service_running_channel_name">Saluran Layanan Float Volume</string>
+    <string name="service_notification_title">Float Volume</string>
+    <string name="service_notification_desc">Tombol melayang persisten sedang aktif. Sentuh untuk menyesuaikan volume.</string>
+    <string name="grant_permission">Izinkan Akses</string>
+    <string name="permission_granted">Akses Diizinkan</string>
 </resources>

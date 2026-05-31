@@ -11,22 +11,37 @@
         android:pivotX="256"
         android:pivotY="256">
         
+        <!-- Nested charcoal card backdrop to match logo.svg -->
+        <path
+            android:fillColor="#1C1B1F"
+            android:strokeColor="#2B2930"
+            android:strokeWidth="2"
+            android:pathData="M 136,48 L 376,48 A 88,88 0 0,1 464,136 L 464,376 A 88,88 0 0,1 376,464 L 136,464 A 88,88 0 0,1 48,376 L 48,136 A 88,88 0 0,1 136,48 Z" />
+            
         <!-- Dashed / patterned outer representation of the volume track -->
         <path
             android:pathData="M 256,76 A 180,180 0 1,1 255.9,76"
             android:fillColor="#00000000"
             android:strokeColor="#49454F"
             android:strokeWidth="12"
-            android:strokeAlpha="0.6" />
+            android:strokeDashArray="10,15"
+            android:strokeAlpha="0.5" />
             
-        <!-- Precise high-fidelity rendition of the central volume path -->
+        <!-- Precise high-fidelity rendition of the central volume path with gradient -->
         <path
             android:pathData="M160,170 L340,170 M160,245 L290,245 M160,160 L160,280 Q160,330 190,360 L256,410 L322,360 Q352,330 352,280 L352,160"
-            android:fillColor="#00000000"
-            android:strokeColor="#D0BCFF"
             android:strokeWidth="34"
             android:strokeLineCap="round"
-            android:strokeLineJoin="round" />
+            android:strokeLineJoin="round">
+            <gradient
+                android:type="linear"
+                android:startX="160"
+                android:startY="160"
+                android:endX="352"
+                android:endY="410"
+                android:startColor="#D0BCFF"
+                android:endColor="#9A82DB" />
+        </path>
             
         <!-- Elegant focal highlight dot representing the sliding state tracker -->
         <path

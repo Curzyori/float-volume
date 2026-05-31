@@ -98,7 +98,13 @@ class VolumeFloatingService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            ACTION_STOP -> stopSelf()
+            ACTION_STOP -> {
+                getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("service_enabled", false)
+                    .apply()
+                stopSelf()
+            }
             ACTION_UPDATE_SIZE -> {
                 val sizeDp = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_size", 54)
                 applyBubbleSize(sizeDp)
@@ -313,7 +319,7 @@ class VolumeFloatingService : Service() {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
                 getString(R.string.service_running_channel_name),
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_MIN
             )
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(serviceChannel)
@@ -341,10 +347,10 @@ class VolumeFloatingService : Service() {
             .setContentIntent(pendingIntent)
             .addAction(
                 android.R.drawable.ic_menu_close_clear_cancel,
-                "Stop Service",
+                "Hentikan",
                 stopPendingIntent
             )
-            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setPriority(NotificationCompat.PRIORITY_MIN)
             .build()
     }
 

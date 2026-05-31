@@ -241,12 +241,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun toggleService() {
+        val prefs = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
         if (VolumeFloatingService.isRunning) {
             stopService(Intent(this, VolumeFloatingService::class.java))
+            prefs.edit().putBoolean("service_enabled", false).apply()
         } else {
             if (Settings.canDrawOverlays(this)) {
                 val serviceIntent = Intent(this, VolumeFloatingService::class.java)
                 ContextCompat.startForegroundService(this, serviceIntent)
+                prefs.edit().putBoolean("service_enabled", true).apply()
             }
         }
         // Small delay to allow running state boolean to reflect
