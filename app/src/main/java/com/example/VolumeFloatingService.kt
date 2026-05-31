@@ -36,6 +36,7 @@ class VolumeFloatingService : Service() {
         const val NOTIFICATION_ID = 8877
         const val ACTION_STOP = "com.example.ACTION_STOP"
         const val ACTION_UPDATE_SIZE = "com.example.ACTION_UPDATE_SIZE"
+        const val ACTION_UPDATE_OPACITY = "com.example.ACTION_UPDATE_OPACITY"
         
         @Volatile
         var isRunning = false
@@ -56,9 +57,9 @@ class VolumeFloatingService : Service() {
     private val handler = Handler(Looper.getMainLooper())
     private var isDimmed = false
 
-    // 5-second idle runnable to dim opacity to 30%
+    // 5-second idle runnable to dim opacity to 30% of active value
     private val dimRunnable = Runnable {
-        animateAlpha(0.3f)
+        animateAlpha(0.3f * getBaseOpacity())
         isDimmed = true
         // Automatically collapse the slider panel on idle
         if (sliderPanel.visibility == View.VISIBLE) {
@@ -109,6 +110,13 @@ class VolumeFloatingService : Service() {
                 val sizeDp = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_size", 54)
                 applyBubbleSize(sizeDp)
             }
+            ACTION_UPDATE_OPACITY -> {
+                if (isDimmed) {
+                    animateAlpha(0.3f * getBaseOpacity())
+                } else {
+                    animateAlpha(getBaseOpacity())
+                }
+            }
         }
         return START_STICKY
     }
@@ -117,6 +125,7 @@ class VolumeFloatingService : Service() {
         floatingView = LayoutInflater.from(this).inflate(R.layout.floating_volume_layout, null)
 
         rootContainer = floatingView.findViewById(R.id.root_container)
+        rootContainer.alpha = getBaseOpacity()
         sliderPanel = floatingView.findViewById(R.id.slider_panel)
         floatingButton = floatingView.findViewById(R.id.floating_button)
         floatingIcon = floatingView.findViewById(R.id.floating_icon)
@@ -158,6 +167,19 @@ class VolumeFloatingService : Service() {
             private var initialTouchY = 0f
             private var touchStartTime = 0L
             private var isDragging = false
+            private var isLongPressTriggered = false
+            private var lastClickTime = 0L
+
+            private val longPressRunnable = Runnable {
+                isLongPressTriggered = true
+                floatingButton.scaleX = 1.0f
+                floatingButton.scaleY = 1.0f
+                onBubbleLongPressed()
+            }
+
+            private val singleClickRunnable = Runnable {
+                onBubbleClicked()
+            }
 
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 resetIdleTimer()
@@ -170,6 +192,10 @@ class VolumeFloatingService : Service() {
                         initialTouchY = event.rawY
                         touchStartTime = System.currentTimeMillis()
                         isDragging = false
+                        isLongPressTriggered = false
+                        
+                        handler.postDelayed(longPressRunnable, 500)
+                        
                         v.scaleX = 0.95f
                         v.scaleY = 0.95f
                         return true
@@ -182,7 +208,10 @@ class VolumeFloatingService : Service() {
                         val dragThreshold = (8 * density).toInt() // 8dp sensitivity limit
                         
                         if (abs(dx) > dragThreshold || abs(dy) > dragThreshold) {
-                            isDragging = true
+                            if (!isDragging) {
+                                isDragging = true
+                                handler.removeCallbacks(longPressRunnable)
+                            }
                             params.x = (initialX + dx).toInt()
                             params.y = (initialY + dy).toInt()
                             try {
@@ -196,6 +225,13 @@ class VolumeFloatingService : Service() {
                     MotionEvent.ACTION_UP -> {
                         v.scaleX = 1.0f
                         v.scaleY = 1.0f
+                        
+                        handler.removeCallbacks(longPressRunnable)
+
+                        if (isLongPressTriggered) {
+                            return true
+                        }
+
                         val duration = System.currentTimeMillis() - touchStartTime
                         val dist = abs(event.rawX - initialTouchX) + abs(event.rawY - initialTouchY)
 
@@ -209,8 +245,21 @@ class VolumeFloatingService : Service() {
                                 .putInt("bubble_y", params.y)
                                 .apply()
                         } else if (dist < clickDistThreshold && duration < 250) {
-                            onBubbleClicked()
+                            val clickTime = System.currentTimeMillis()
+                            if (clickTime - lastClickTime < 300) {
+                                handler.removeCallbacks(singleClickRunnable)
+                                onBubbleDoubleClicked()
+                            } else {
+                                lastClickTime = clickTime
+                                handler.postDelayed(singleClickRunnable, 300)
+                            }
                         }
+                        return true
+                    }
+                    MotionEvent.ACTION_CANCEL -> {
+                        v.scaleX = 1.0f
+                        v.scaleY = 1.0f
+                        handler.removeCallbacks(longPressRunnable)
                         return true
                     }
                 }
@@ -281,6 +330,34 @@ class VolumeFloatingService : Service() {
         )
     }
 
+    private fun onBubbleLongPressed() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        startActivity(intent)
+    }
+
+    private fun onBubbleDoubleClicked() {
+        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        val prefs = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
+        if (currentVolume > 0) {
+            // Mute: save current volume and set volume to 0
+            prefs.edit().putInt("last_volume_before_mute", currentVolume).apply()
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_SHOW_UI)
+        } else {
+            // Unmute: restore last volume
+            val lastVolume = prefs.getInt("last_volume_before_mute", 5)
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_SHOW_UI)
+        }
+        updateSeekBarToSystemVolume()
+        resetIdleTimer()
+    }
+
+    private fun getBaseOpacity(): Float {
+        val prefs = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
+        return prefs.getInt("bubble_opacity", 100) / 100f
+    }
+
     private fun updateSeekBarToSystemVolume() {
         val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
@@ -302,7 +379,7 @@ class VolumeFloatingService : Service() {
     private fun resetIdleTimer() {
         handler.removeCallbacks(dimRunnable)
         if (isDimmed) {
-            animateAlpha(1.0f)
+            animateAlpha(getBaseOpacity())
             isDimmed = false
         }
         handler.postDelayed(dimRunnable, 5000)

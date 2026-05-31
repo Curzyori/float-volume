@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
     private val currentVolume = mutableIntStateOf(0)
     private val maxVolume = mutableIntStateOf(15)
     private val bubbleSize = mutableIntStateOf(54)
+    private val bubbleOpacity = mutableIntStateOf(100)
 
     // Observable service isRunning state
     private val serviceRunning = mutableStateOf(false)
@@ -148,6 +149,21 @@ class MainActivity : ComponentActivity() {
                                     startService(intent)
                                 }
                             },
+                            bubbleOpacity = bubbleOpacity.intValue,
+                            onBubbleOpacityChange = { newOpacity ->
+                                bubbleOpacity.intValue = newOpacity
+                                getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
+                                    .edit()
+                                    .putInt("bubble_opacity", newOpacity)
+                                    .apply()
+                                // Notify service if running
+                                if (serviceRunning.value) {
+                                    val intent = Intent(this@MainActivity, VolumeFloatingService::class.java).apply {
+                                        action = VolumeFloatingService.ACTION_UPDATE_OPACITY
+                                    }
+                                    startService(intent)
+                                }
+                            },
                             overlayGranted = overlayGranted.value,
                             notificationGranted = notificationGranted.value,
                             isServiceRunning = serviceRunning.value,
@@ -185,6 +201,7 @@ class MainActivity : ComponentActivity() {
         syncServiceState()
         syncVolumeState()
         bubbleSize.intValue = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_size", 54)
+        bubbleOpacity.intValue = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_opacity", 100)
         
         // Dynamic volume broad receiver sync
         @Suppress("DEPRECATION")
@@ -316,6 +333,8 @@ fun DashboardScreen(
     maxVolume: Int,
     bubbleSize: Int,
     onBubbleSizeChange: (Int) -> Unit,
+    bubbleOpacity: Int,
+    onBubbleOpacityChange: (Int) -> Unit,
     overlayGranted: Boolean,
     notificationGranted: Boolean,
     isServiceRunning: Boolean,
@@ -503,6 +522,58 @@ fun DashboardScreen(
 
                 Text(
                     text = "Sesuaikan ukuran lingkaran melayang di layar agar lebih pas dan nyaman digunakankan.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color(0xFFCAC4D0),
+                    fontSize = 12.sp
+                )
+            }
+        }
+
+        // Transparansi Lingkaran Melayang (Opacity Customizer Card)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFF2B2930)
+            ),
+            shape = RoundedCornerShape(24.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Transparansi Lingkaran Melayang",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xFFE6E1E5)
+                    )
+                    Text(
+                        text = "$bubbleOpacity%",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFD0BCFF)
+                    )
+                }
+
+                Slider(
+                    value = bubbleOpacity.toFloat(),
+                    onValueChange = { onBubbleOpacityChange(it.toInt()) },
+                    valueRange = 10f..100f,
+                    colors = SliderDefaults.colors(
+                        thumbColor = Color(0xFFD0BCFF),
+                        activeTrackColor = Color(0xFFD0BCFF),
+                        inactiveTrackColor = Color(0xFF49454F)
+                    )
+                )
+
+                Text(
+                    text = "Sesuaikan tingkat transparansi tombol melayang (10% - 100%) agar tersamar sempurna di layar Anda.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -725,9 +796,11 @@ fun DashboardScreen(
                 }
 
                 val tips = listOf(
-                    "<b>Geser Circle</b>: Sentuh lalu seret lingkaran putih polos ke sudut mana pun di layar sesuai keinginan Anda.",
-                    "<b>Ketik/Tap</b>: Secara instan menampilkan widget pengatur suara bawaan (default HP) di bagian kanan layar.",
-                    "<b>Redup Otomatis</b>: Biarkan lingkaran lepas dari sentuhan selama 5 detik, maka intensitas cahayanya akan meredup hingga 30%. Sentuh atau geser untuk menerangkannya kembali!"
+                    "<b>Geser Circle</b>: Sentuh lalu seret lingkaran melayang ke sudut mana pun di layar sesuai keinginan Anda.",
+                    "<b>Ketuk Sekali</b>: Menampilkan kontrol widget pengatur suara bawaan (default HP) di layar.",
+                    "<b>Ketuk Dua Kali</b>: Senyap (Mute) atau bunyikan kembali (Unmute) aliran suara default HP secara instan.",
+                    "<b>Tekan Lama (0.5s)</b>: Membuka dashboard utama Float Volume secara instan dari mana saja.",
+                    "<b>Redup Otomatis</b>: Diamkan selama 5 detik untuk meredupkan lingkaran ke 30% dari transparansi aktif Anda secara proporsional."
                 )
 
                 tips.forEach { htmlText ->
@@ -797,7 +870,7 @@ fun DashboardScreen(
                 )
             }
             Text(
-                text = "Version 2.0.0",
+                text = "Version 3.0.0",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color(0xFF49454F),
                 fontWeight = FontWeight.Medium
