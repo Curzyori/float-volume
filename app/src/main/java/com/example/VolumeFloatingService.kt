@@ -145,9 +145,10 @@ class VolumeFloatingService : Service() {
             PixelFormat.TRANSLUCENT
         )
 
+        val prefs = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
         params.gravity = Gravity.TOP or Gravity.START
-        params.x = 100
-        params.y = 400
+        params.x = prefs.getInt("bubble_x", 100)
+        params.y = prefs.getInt("bubble_y", 400)
 
         // Handle draggable touch behavior for floating round button
         floatingButton.setOnTouchListener(object : View.OnTouchListener {
@@ -201,7 +202,13 @@ class VolumeFloatingService : Service() {
                         val density = resources.displayMetrics.density
                         val clickDistThreshold = (12 * density).toInt() // 12dp click limit
                         
-                        if (!isDragging || (dist < clickDistThreshold && duration < 250)) {
+                        if (isDragging) {
+                            getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
+                                .edit()
+                                .putInt("bubble_x", params.x)
+                                .putInt("bubble_y", params.y)
+                                .apply()
+                        } else if (dist < clickDistThreshold && duration < 250) {
                             onBubbleClicked()
                         }
                         return true

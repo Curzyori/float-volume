@@ -1,21 +1,36 @@
+# ====================================================================
+# Android & Gradle Build Artifacts
+# ====================================================================
+build/
+.gradle/
+.kotlin/
+.build-outputs/
+
+# ====================================================================
+# IDE / Android Studio Settings
+# ====================================================================
+.idea/
 *.iml
-.gradle
-.kotlin
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ====================================================================
+# Local Configuration & Secrets
+# ====================================================================
 local.properties
 .env
 debug.keystore
-.build-outputs
-.example
+
+# ====================================================================
+# OS-Specific Files
+# ====================================================================
+.DS_Store
+Thumbs.db
+*.log
+
+# ====================================================================
+# Project-Specific Custom Ignores
+# ====================================================================
 .example/
