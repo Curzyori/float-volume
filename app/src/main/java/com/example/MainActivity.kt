@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.compose.ui.semantics.*
 import com.example.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -275,7 +276,11 @@ fun CustomElegantSwitch(
         if (state) 24.dp else 4.dp
     }
     
-    val trackColor = if (checked) Color(0xFFD0BCFF) else Color(0xFF49454F)
+    val trackColor by animateColorAsState(
+        targetValue = if (checked) Color(0xFFD0BCFF) else Color(0xFF49454F),
+        animationSpec = tween(durationMillis = 200),
+        label = "TrackColor"
+    )
     val thumbColor = if (checked) Color(0xFF381E72) else Color(0xFFE6E1E5)
     
     Box(
@@ -284,8 +289,14 @@ fun CustomElegantSwitch(
             .height(32.dp)
             .clip(CircleShape)
             .background(trackColor)
-            .clickable { onCheckedChange(!checked) }
-            .padding(vertical = 4.dp),
+            .clickable(
+                onClickLabel = "Aktifkan Layanan Melayang",
+                role = Role.Switch
+            ) { onCheckedChange(!checked) }
+            .padding(vertical = 4.dp)
+            .semantics {
+                stateDescription = if (checked) "Aktif" else "Nonaktif"
+            },
         contentAlignment = Alignment.CenterStart
     ) {
         Box(

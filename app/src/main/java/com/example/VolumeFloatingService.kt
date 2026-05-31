@@ -177,7 +177,10 @@ class VolumeFloatingService : Service() {
                         val dx = event.rawX - initialTouchX
                         val dy = event.rawY - initialTouchY
 
-                        if (abs(dx) > 10 || abs(dy) > 10) {
+                        val density = resources.displayMetrics.density
+                        val dragThreshold = (8 * density).toInt() // 8dp sensitivity limit
+                        
+                        if (abs(dx) > dragThreshold || abs(dy) > dragThreshold) {
                             isDragging = true
                             params.x = (initialX + dx).toInt()
                             params.y = (initialY + dy).toInt()
@@ -195,7 +198,10 @@ class VolumeFloatingService : Service() {
                         val duration = System.currentTimeMillis() - touchStartTime
                         val dist = abs(event.rawX - initialTouchX) + abs(event.rawY - initialTouchY)
 
-                        if (!isDragging || (dist < 15 && duration < 250)) {
+                        val density = resources.displayMetrics.density
+                        val clickDistThreshold = (12 * density).toInt() // 12dp click limit
+                        
+                        if (!isDragging || (dist < clickDistThreshold && duration < 250)) {
                             onBubbleClicked()
                         }
                         return true
