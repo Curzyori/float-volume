@@ -94,13 +94,11 @@ class MainActivity : ComponentActivity() {
                                     Box(
                                         modifier = Modifier
                                             .size(40.dp)
-                                            .clip(RoundedCornerShape(10.dp))
-                                            .background(Color(0xFF1C1B1F))
-                                            .border(1.dp, Color(0xFF2B2930), RoundedCornerShape(10.dp)),
+                                            .clip(RoundedCornerShape(10.dp)),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                            painter = painterResource(id = R.drawable.ic_app_logo),
                                             contentDescription = null,
                                             tint = Color.Unspecified,
                                             modifier = Modifier.fillMaxSize()

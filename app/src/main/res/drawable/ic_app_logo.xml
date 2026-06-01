@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- 1. Outer Dark Gradient Squircle Card (rx=112 in 512x512) -->
+    <path
+        android:pathData="M 112,0 H 400 A 112,112 0 0,1 512,112 V 400 A 112,112 0 0,1 400,512 H 112 A 112,112 0 0,1 0,400 V 112 A 112,112 0 0,1 112,0 Z">
+        <gradient
+            android:type="linear"
+            android:startX="0"
+            android:startY="0"
+            android:endX="512"
+            android:endY="512"
+            android:startColor="#1A1A1E"
+            android:endColor="#121214" />
+    </path>
+
+    <!-- 2. Inner Nested Charcoal Card (rx=88, offset 48) -->
+    <path
+        android:fillColor="#1C1B1F"
+        android:strokeColor="#2B2930"
+        android:strokeWidth="2"
+        android:pathData="M 136,48 L 376,48 A 88,88 0 0,1 464,136 L 464,376 A 88,88 0 0,1 376,464 L 136,464 A 88,88 0 0,1 48,376 L 48,136 A 88,88 0 0,1 136,48 Z" />
+
+    <!-- 3. Outer Representation of the Volume Track -->
+    <path
+        android:pathData="M 256,76 A 180,180 0 1,1 255.9,76"
+        android:fillColor="#00000000"
+        android:strokeColor="#49454F"
+        android:strokeWidth="12"
+        android:strokeAlpha="0.5" />
+
+    <!-- 4. Central Volume Path with Lavender-Purple Gradient -->
+    <path
+        android:pathData="M160,170 L340,170 M160,245 L290,245 M160,160 L160,280 Q160,330 190,360 L256,410 L322,360 Q352,330 352,280 L352,160"
+        android:strokeWidth="34"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <gradient
+            android:type="linear"
+            android:startX="160"
+            android:startY="160"
+            android:endX="352"
+            android:endY="410"
+            android:startColor="#D0BCFF"
+            android:endColor="#9A82DB" />
+    </path>
+
+    <!-- 5. Elegant Slider Indicator State highlight dot -->
+    <path
+        android:pathData="M 352,160 m -22,0 a 22,22 0 1,1 44,0 a 22,22 0 1,1 -44,0"
+        android:fillColor="#E6DFF3" />
+
+</vector>
