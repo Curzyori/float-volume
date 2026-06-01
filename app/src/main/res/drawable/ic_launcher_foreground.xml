@@ -24,7 +24,8 @@
             android:fillColor="#00000000"
             android:strokeColor="#49454F"
             android:strokeWidth="12"
-            android:strokeDashArray="10,15"
+            android:strokeDashWidth="10"
+            android:strokeDashGap="15"
             android:strokeAlpha="0.5" />
             
         <!-- Precise high-fidelity rendition of the central volume path with gradient -->
