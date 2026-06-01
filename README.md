@@ -64,9 +64,19 @@ Berikut preview antarmuka aplikasi Float Volume dengan rasio aspek layar 9:16:
 ## 📥 Unduh Aplikasi (Download Build APK)
 Anda dapat langsung mengunduh dan memasang aplikasi Float Volume versi final yang siap pakai di ponsel Android Anda:
 
-💾 **[Unduh Float-Volume-v3.1.0.apk (Direct Download)](./version/Float-Volume-v3.1.0.apk)**  
+💾 **[Unduh Float-Volume-v3.2.0.apk (Direct Download)](./version/Float-Volume-v3.2.0.apk)**  
 📂 **[Unduh via Google Drive (Mirror Link)](https://drive.google.com/drive/folders/10iv-r-W9YZWcAzwDBTvLrRjX0dMo4pkB?usp=drive_link)**  
 *(Pastikan perizinan pemasangan APK dari sumber tidak dikenal telah diizinkan).*
+
+### 📜 Riwayat Versi Lainnya (Older Versions)
+Jika Anda membutuhkan versi lama, Anda bisa mengunduh berkas APK di bawah ini secara langsung:
+
+| Versi | Berkas APK (Direct Download) | Keterangan |
+| :---: | :--- | :--- |
+| **v3.2.0** | 💾 **[Float-Volume-v3.2.0.apk](./version/Float-Volume-v3.2.0.apk)** | Versi Terbaru: Koreksi rendering Vector XML (AAPT) & upgrade logo premium. |
+| **v3.1.0** | 💾 **[Float-Volume-v3.1.0.apk](./version/Float-Volume-v3.1.0.apk)** | Upgrade versi visual & logo manual kompresi. |
+| **v3.0.0** | 💾 **[Float-Volume-v3.0.0.apk](./version/Float-Volume-v3.0.0.apk)** | Fitur kustomisasi ukuran & transparansi gelembung, gestur Long-Press & Double-Tap. |
+| **v2.0.0** | 💾 **[Float-Volume-v2.0.0.apk](./version/Float-Volume-v2.0.0.apk)** | Branding baru "Float Volume", UI M3 mewah, dan asset vector logo awal. |
 
 ---
 
@@ -149,9 +159,19 @@ Many Android users experience broken, soft, or damaged physical volume buttons. 
 ## 📥 Direct APK Build Access (Download App)
 Instantly retrieve the compiled application package block:
 
-💾 **[Download Float-Volume-v3.1.0.apk (Direct Installer link)](./version/Float-Volume-v3.1.0.apk)**  
+💾 **[Download Float-Volume-v3.2.0.apk (Direct Installer link)](./version/Float-Volume-v3.2.0.apk)**  
 📂 **[Download via Google Drive (Mirror Link)](https://drive.google.com/drive/folders/10iv-r-W9YZWcAzwDBTvLrRjX0dMo4pkB?usp=drive_link)**  
 *(Enable 'Unset Sources / External App Installations' in your security tab to install).*
+
+### 📜 Older Version History (Historical APKs)
+If you require historical builds, you can download older APK files directly from here:
+
+| Version | APK File (Direct Link) | Highlights |
+| :---: | :--- | :--- |
+| **v3.2.0** | 💾 **[Float-Volume-v3.2.0.apk](./version/Float-Volume-v3.2.0.apk)** | Latest: Fixed Vector XML gradient rendering (AAPT) & premium logo. |
+| **v3.1.0** | 💾 **[Float-Volume-v3.1.0.apk](./version/Float-Volume-v3.1.0.apk)** | Visual version upgrade & manual compressed logo resource. |
+| **v3.0.0** | 💾 **[Float-Volume-v3.0.0.apk](./version/Float-Volume-v3.0.0.apk)** | Bubble size & opacity controls, Long-Press & Double-Tap stealth actions. |
+| **v2.0.0** | 💾 **[Float-Volume-v2.0.0.apk](./version/Float-Volume-v2.0.0.apk)** | Refactored "Float Volume" branding, elegant M3 UI canvas, and adaptive vector logo. |
 
 ---
 
@@ -191,7 +211,7 @@ cd Float-Volume-10
 ---
 
 ## 🏷️ System Version
-* **Active Version**: `v3.1.0`
+* **Active Version**: `v3.2.0`
 * **Target OS level**: Android 7.0 (API level 24) up to Android 15 (API level 36)
 
 ---

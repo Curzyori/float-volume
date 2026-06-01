@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="512"
@@ -32,14 +33,16 @@
             android:strokeWidth="34"
             android:strokeLineCap="round"
             android:strokeLineJoin="round">
-            <gradient
-                android:type="linear"
-                android:startX="160"
-                android:startY="160"
-                android:endX="352"
-                android:endY="410"
-                android:startColor="#D0BCFF"
-                android:endColor="#9A82DB" />
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="160"
+                    android:startY="160"
+                    android:endX="352"
+                    android:endY="410"
+                    android:startColor="#D0BCFF"
+                    android:endColor="#9A82DB" />
+            </aapt:attr>
         </path>
             
         <!-- Elegant focal highlight dot representing the sliding state tracker -->

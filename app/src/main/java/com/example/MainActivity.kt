@@ -868,7 +868,7 @@ fun DashboardScreen(
                 )
             }
             Text(
-                text = "Version 3.1.0",
+                text = "Version 3.2.0",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color(0xFF49454F),
                 fontWeight = FontWeight.Medium
