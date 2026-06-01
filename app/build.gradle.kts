@@ -147,4 +147,9 @@ tasks.register("listApks") {
   }
 }
 
+kotlin {
+  jvmToolchain(17)
+}
+
+
 
