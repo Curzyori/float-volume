@@ -14,8 +14,8 @@ android {
     applicationId = "com.aistudio.floatingvolume.gxypmz"
     minSdk = 24
     targetSdk = 36
-    versionCode = 6
-    versionName = "4.0.0"
+    versionCode = 5
+    versionName = "3.2.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -127,7 +127,7 @@ tasks.register<Copy>("copyApk") {
   from("build/outputs/apk/debug")
   include("app-debug.apk")
   into(File(rootDirFile, "version"))
-  rename("app-debug.apk", "Float-Volume-v4.0.0.apk")
+  rename("app-debug.apk", "Float-Volume-v3.2.0.apk")
 }
 
 afterEvaluate {

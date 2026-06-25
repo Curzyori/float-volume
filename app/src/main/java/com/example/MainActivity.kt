@@ -43,98 +43,6 @@ import androidx.core.content.ContextCompat
 import androidx.compose.ui.semantics.*
 import com.example.ui.theme.MyApplicationTheme
 
-// ============================================================
-// String Resources — Home Screen ID / EN
-// ============================================================
-private val homeStrings = mapOf(
-    "id" to mapOf(
-        "switch_activate" to "Aktifkan Layanan Melayang",
-        "state_active" to "Aktif",
-        "state_inactive" to "Nonaktif",
-        "status_bubble" to "STATUS GELEMBUNG",
-        "volume_music" to "Volume Aliran Musik",
-        "volume_down" to "Volume Turun",
-        "volume_up" to "Volume Naik",
-        "volume_sync" to "Tersinkronisasi penuh dengan volume media default ponsel Anda.",
-        "bubble_size" to "Ukuran Gelembung Melayang",
-        "bubble_size_desc" to "Sesuaikan diameter gelembung melayang agar pas dan nyaman saat Anda gunakan.",
-        "bubble_opacity" to "Transparansi Gelembung Melayang",
-        "bubble_opacity_desc" to "Atur transparansi gelembung (10% - 100%) agar menyatu secara alami dengan wallpaper layar Anda.",
-        "system_access" to "AKSES & PERIZINAN SISTEM",
-        "overlay_title" to "Tampilkan di Atas Aplikasi Lain",
-        "overlay_desc" to "Diperlukan untuk memunculkan gelembung melayang di atas aplikasi lain.",
-        "overlay_granted" to "DIIZINKAN",
-        "overlay_grant" to "IZINKAN",
-        "service_title" to "Sistem Latar Belakang (Service)",
-        "service_desc" to "Menjaga gelembung melayang tetap siaga melayani Anda setiap saat.",
-        "service_active" to "AKTIF",
-        "service_support" to "MENDUKUNG",
-        "notif_title" to "Izin Notifikasi",
-        "notif_desc" to "Diperlukan untuk memunculkan panel kontrol cepat pada laci notifikasi.",
-        "notif_granted" to "DIIZINKAN",
-        "notif_grant" to "IZINKAN",
-        "tips_icon" to "Tips",
-        "gesture_guide" to "Panduan Gestur Gelembung",
-        "gesture_swipe" to "Geser Gelembung",
-        "gesture_swipe_desc" to "Sentuh dan geser lingkaran melayang ke posisi mana pun di layar Anda.",
-        "gesture_single" to "Ketuk Sekali",
-        "gesture_single_desc" to "Memunculkan widget pengatur volume default bawaan ponsel Anda.",
-        "gesture_double" to "Ketuk Dua Kali",
-        "gesture_double_desc" to "Membisukan (Mute) atau membunyikan kembali (Unmute) suara ponsel seketika.",
-        "gesture_long" to "Tekan Lama (0.5s)",
-        "gesture_long_desc" to "Membuka kembali menu pengaturan utama aplikasi ini dari layar mana saja.",
-        "gesture_auto" to "Redup Otomatis",
-        "gesture_auto_desc" to "Gelembung akan meredup hingga 30% dari keburaman utama jika didiamkan selama 5 detik agar tersamar sempurna.",
-        "version" to "Versi 4.0.0",
-    ),
-    "en" to mapOf(
-        "switch_activate" to "Enable Floating Service",
-        "state_active" to "Active",
-        "state_inactive" to "Inactive",
-        "status_bubble" to "BUBBLE STATUS",
-        "volume_music" to "Music Stream Volume",
-        "volume_down" to "Volume Down",
-        "volume_up" to "Volume Up",
-        "volume_sync" to "Fully synchronized with your phone's default media volume.",
-        "bubble_size" to "Floating Bubble Size",
-        "bubble_size_desc" to "Adjust the bubble diameter to fit comfortably on your screen.",
-        "bubble_opacity" to "Floating Bubble Opacity",
-        "bubble_opacity_desc" to "Set bubble opacity (10% - 100%) to blend naturally with your wallpaper.",
-        "system_access" to "SYSTEM ACCESS & PERMISSIONS",
-        "overlay_title" to "Display Over Other Apps",
-        "overlay_desc" to "Required to show the floating bubble over other applications.",
-        "overlay_granted" to "GRANTED",
-        "overlay_grant" to "ALLOW",
-        "service_title" to "Background System (Service)",
-        "service_desc" to "Keeps the floating bubble ready to serve you at all times.",
-        "service_active" to "ACTIVE",
-        "service_support" to "SUPPORTED",
-        "notif_title" to "Notification Permission",
-        "notif_desc" to "Required to show quick control panel in the notification drawer.",
-        "notif_granted" to "GRANTED",
-        "notif_grant" to "ALLOW",
-        "tips_icon" to "Tips",
-        "gesture_guide" to "Bubble Gesture Guide",
-        "gesture_swipe" to "Swipe Bubble",
-        "gesture_swipe_desc" to "Touch and drag the floating circle to any position on your screen.",
-        "gesture_single" to "Single Tap",
-        "gesture_single_desc" to "Opens your phone's default volume control widget.",
-        "gesture_double" to "Double Tap",
-        "gesture_double_desc" to "Mute or unmute your phone's sound instantly.",
-        "gesture_long" to "Long Press (0.5s)",
-        "gesture_long_desc" to "Reopens this app's main settings from anywhere.",
-        "gesture_auto" to "Auto Dim",
-        "gesture_auto_desc" to "Bubble dims to 30% opacity after 5 seconds of inactivity for a subtle effect.",
-        "version" to "Version 4.0.0",
-    )
-)
-
-private fun getHomeString(ctx: Context, key: String): String {
-    val lang = ctx.getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
-        .getString("language", "id") ?: "id"
-    return homeStrings[lang]?.get(key) ?: homeStrings["id"]?.get(key) ?: key
-}
-
 class MainActivity : ComponentActivity() {
 
     private lateinit var audioManager: AudioManager
@@ -151,12 +59,6 @@ class MainActivity : ComponentActivity() {
     // Observable permission statuses
     private val overlayGranted = mutableStateOf(false)
     private val notificationGranted = mutableStateOf(false)
-
-    // Settings dialog state
-    private val showSettings = mutableStateOf(false)
-
-    // Language state for bilingual UI
-    private val currentLang = mutableStateOf("id")
 
     private val volumeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -175,8 +77,6 @@ class MainActivity : ComponentActivity() {
 
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         syncVolumeState()
-        currentLang.value = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
-            .getString("language", "id") ?: "id"
 
         setContent {
             MyApplicationTheme {
@@ -216,19 +116,10 @@ class MainActivity : ComponentActivity() {
                             colors = TopAppBarDefaults.topAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.background,
                                 titleContentColor = MaterialTheme.colorScheme.onBackground
-                            ),
-                            actions = {
-                                IconButton(onClick = { showSettings.value = true }) {
-                                    Icon(
-                                        painter = painterResource(id = android.R.drawable.ic_menu_preferences),
-                                        contentDescription = "Settings",
-                                        tint = Color(0xFFD0BCFF)
-                                    )
-                                }
-                            }
                             )
-                        }
-                    ) { innerPadding ->
+                        )
+                    }
+                ) { innerPadding ->
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -239,7 +130,6 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 .padding(horizontal = 4.dp)
                                 .verticalScroll(rememberScrollState()),
-                            lang = currentLang.value,
                             currentVolume = currentVolume.intValue,
                             maxVolume = maxVolume.intValue,
                             bubbleSize = bubbleSize.intValue,
@@ -298,12 +188,6 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-
-                    if (showSettings.value) {
-                        SettingsDialog(
-                            onDismiss = { showSettings.value = false }
-                        )
-                    }
                 }
             }
         }
@@ -316,8 +200,6 @@ class MainActivity : ComponentActivity() {
         syncVolumeState()
         bubbleSize.intValue = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_size", 54)
         bubbleOpacity.intValue = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE).getInt("bubble_opacity", 100)
-        currentLang.value = getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
-            .getString("language", "id") ?: "id"
         
         // Dynamic volume broad receiver sync
         @Suppress("DEPRECATION")
@@ -423,12 +305,12 @@ fun CustomElegantSwitch(
             .clip(CircleShape)
             .background(trackColor)
             .clickable(
-                onClickLabel = "Enable Floating Service",
+                onClickLabel = "Aktifkan Layanan Melayang",
                 role = Role.Switch
             ) { onCheckedChange(!checked) }
             .padding(vertical = 4.dp)
             .semantics {
-                stateDescription = if (checked) "Active" else "Inactive"
+                stateDescription = if (checked) "Aktif" else "Nonaktif"
             },
         contentAlignment = Alignment.CenterStart
     ) {
@@ -445,7 +327,6 @@ fun CustomElegantSwitch(
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
-    lang: String,
     currentVolume: Int,
     maxVolume: Int,
     bubbleSize: Int,
@@ -461,7 +342,6 @@ fun DashboardScreen(
     onRequestNotificationPermission: () -> Unit,
     onToggleService: () -> Unit
 ) {
-    val ctx = LocalContext.current
     Column(
         modifier = modifier.padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -484,7 +364,7 @@ fun DashboardScreen(
             ) {
                 Column {
                     Text(
-                        text = "BUBBLE STATUS",
+                        text = "STATUS GELEMBUNG",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Medium,
                         letterSpacing = 1.sp,
@@ -492,7 +372,7 @@ fun DashboardScreen(
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = if (isServiceRunning) "Active" else "Inactive",
+                        text = if (isServiceRunning) "Aktif" else "Nonaktif",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -532,7 +412,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Music Stream Volume",
+                        text = "Volume Aliran Musik",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -587,7 +467,7 @@ fun DashboardScreen(
                 }
                 
                 Text(
-                    text = "Fully synchronized with your phone's default media volume.",
+                    text = "Tersinkronisasi penuh dengan volume media default ponsel Anda.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -613,7 +493,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Floating Bubble Size",
+                        text = "Ukuran Gelembung Melayang",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -639,7 +519,7 @@ fun DashboardScreen(
                 )
 
                 Text(
-                    text = "Adjust the bubble diameter to fit comfortably on your screen.",
+                    text = "Sesuaikan diameter gelembung melayang agar pas dan nyaman saat Anda gunakan.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -665,7 +545,7 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Floating Bubble Opacity",
+                        text = "Transparansi Gelembung Melayang",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xFFE6E1E5)
@@ -691,7 +571,7 @@ fun DashboardScreen(
                 )
 
                 Text(
-                    text = "Set bubble opacity (10% - 100%) to blend naturally with your wallpaper.",
+                    text = "Atur transparansi gelembung (10% - 100%) agar menyatu secara alami dengan wallpaper layar Anda.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFCAC4D0),
                     fontSize = 12.sp
@@ -713,7 +593,7 @@ fun DashboardScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "SYSTEM ACCESS & PERMISSIONS",
+                    text = "AKSES & PERIZINAN SISTEM",
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp,
@@ -728,13 +608,13 @@ fun DashboardScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Display Over Other Apps",
+                            text = "Tampilkan di Atas Aplikasi Lain",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFFE6E1E5)
                         )
                         Text(
-                            text = "Required to show the floating bubble over other applications.",
+                            text = "Diperlukan untuk memunculkan gelembung melayang di atas aplikasi lain.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFFCAC4D0),
                             fontSize = 11.sp
@@ -749,7 +629,7 @@ fun DashboardScreen(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "GRANTED",
+                                text = "DIIZINKAN",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFFb5e6b7)
@@ -763,7 +643,7 @@ fun DashboardScreen(
                             modifier = Modifier.height(28.dp)
                         ) {
                             Text(
-                                text = "ALLOW",
+                                text = "IZINKAN",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFFf5c2c2)
@@ -782,13 +662,13 @@ fun DashboardScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Background System (Service)",
+                            text = "Sistem Latar Belakang (Service)",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xFFE6E1E5)
                         )
                         Text(
-                            text = "Keeps the floating bubble ready to serve you at all times.",
+                            text = "Menjaga gelembung melayang tetap siaga melayani Anda setiap saat.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFFCAC4D0),
                             fontSize = 11.sp
@@ -803,7 +683,7 @@ fun DashboardScreen(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "ACTIVE",
+                                text = "AKTIF",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFFb5e6b7)
@@ -816,7 +696,7 @@ fun DashboardScreen(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "SUPPORTED",
+                                text = "MENDUKUNG",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFFe6c8b5)
@@ -836,13 +716,13 @@ fun DashboardScreen(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Notification Permission",
+                                text = "Izin Notifikasi",
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.Medium,
                                 color = Color(0xFFE6E1E5)
                             )
                             Text(
-                                text = "Required to show quick control panel in the notification drawer.",
+                                text = "Diperlukan untuk memunculkan panel kontrol cepat pada laci notifikasi.",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color(0xFFCAC4D0),
                                 fontSize = 11.sp
@@ -857,7 +737,7 @@ fun DashboardScreen(
                                     .padding(horizontal = 10.dp, vertical = 4.dp)
                             ) {
                                 Text(
-                                    text = "GRANTED",
+                                    text = "DIIZINKAN",
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = Color(0xFFb5e6b7)
@@ -871,7 +751,7 @@ fun DashboardScreen(
                                 modifier = Modifier.height(28.dp)
                             ) {
                                 Text(
-                                    text = "ALLOW",
+                                    text = "IZINKAN",
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = Color(0xFFf5c2c2)
@@ -906,28 +786,20 @@ fun DashboardScreen(
                         tint = Color(0xFFD0BCFF)
                     )
                     Text(
-                        text = "Bubble Gesture Guide",
+                        text = "Panduan Gestur Gelembung",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFE6E1E5)
                     )
                 }
 
-                val tipsId = listOf(
+                val tips = listOf(
                     "<b>Geser Gelembung</b>: Sentuh dan geser lingkaran melayang ke posisi mana pun di layar Anda.",
                     "<b>Ketuk Sekali</b>: Memunculkan widget pengatur volume default bawaan ponsel Anda.",
                     "<b>Ketuk Dua Kali</b>: Membisukan (Mute) atau membunyikan kembali (Unmute) suara ponsel seketika.",
                     "<b>Tekan Lama (0.5s)</b>: Membuka kembali menu pengaturan utama aplikasi ini dari layar mana saja.",
                     "<b>Redup Otomatis</b>: Gelembung akan meredup hingga 30% dari keburaman utama jika didiamkan selama 5 detik agar tersamar sempurna."
                 )
-                val tipsEn = listOf(
-                    "<b>Swipe Bubble</b>: Touch and drag the floating circle to any position on your screen.",
-                    "<b>Single Tap</b>: Opens your phone's default volume control widget.",
-                    "<b>Double Tap</b>: Mute or unmute your phone's sound instantly.",
-                    "<b>Long Press (0.5s)</b>: Reopens this app's main settings from anywhere.",
-                    "<b>Auto Dim</b>: Bubble dims to 30% opacity after 5 seconds of inactivity for a subtle effect."
-                )
-                val tips = if (lang == "en") tipsEn else tipsId
 
                 tips.forEach { htmlText ->
                     Row(
@@ -951,18 +823,57 @@ fun DashboardScreen(
             }
         }
 
-        // Footer
+        // Footer Pembuat
+        val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
         Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = if (lang == "en") "Version 4.0.0" else "Versi 4.0.0",
-            style = MaterialTheme.typography.bodySmall,
-            color = Color(0xFF49454F),
-            fontWeight = FontWeight.Medium,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 24.dp),
-            textAlign = TextAlign.Center
-        )
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "Projects 10 By Curzy",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFFD0BCFF)
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "GitHub",
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFFCAC4D0),
+                    modifier = Modifier
+                        .clickable { uriHandler.openUri("https://github.com/Curzyori/Float-Volume-10") }
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+                Text(
+                    text = "•",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color(0xFF49454F)
+                )
+                Text(
+                    text = "Website",
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFFCAC4D0),
+                    modifier = Modifier
+                        .clickable { uriHandler.openUri("https://curzy.my.id/") }
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+            }
+            Text(
+                text = "Version 3.2.0",
+                style = MaterialTheme.typography.bodySmall,
+                color = Color(0xFF49454F),
+                fontWeight = FontWeight.Medium
+            )
+        }
     }
 }
 
