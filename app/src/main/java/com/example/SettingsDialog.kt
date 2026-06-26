@@ -93,14 +93,12 @@ private const val BTC_ADDRESS = "bc1q7g5whvwjvrh7mtuap2tu7qh3tyyhvls36cp7fs"
 // ============================================================
 @Composable
 fun SettingsDialog(
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    lang: String,
+    onLangChange: (String) -> Unit
 ) {
     val context = LocalContext.current
-    var selectedLang by remember {
-        val saved = context.getSharedPreferences("floating_volume_prefs", Context.MODE_PRIVATE)
-            .getString("language", "id") ?: "id"
-        mutableStateOf(saved)
-    }
+    var selectedLang by remember(lang) { mutableStateOf(lang) }
 
     fun saveLang(lang: String) {
         selectedLang = lang
@@ -108,6 +106,7 @@ fun SettingsDialog(
             .edit()
             .putString("language", lang)
             .apply()
+        onLangChange(lang)
     }
 
     fun openUrl(url: String) {
