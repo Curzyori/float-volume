@@ -68,6 +68,7 @@ Download the latest APK from the [version folder](https://github.com/Curzyori/fl
 | Version | File |
 | :--- | :--- |
 | v4.0.0 | `Float-Volume-v4.0.0.apk` |
+| v3.2.0 | `Float-Volume-v3.2.0.apk` |
 | v3.1.0 | `Float-Volume-v3.1.0.apk` |
 | v3.0.0 | `Float-Volume-v3.0.0.apk` |
 | v2.0.0 | `Float-Volume-v2.0.0.apk` |
