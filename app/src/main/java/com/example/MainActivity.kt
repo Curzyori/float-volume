@@ -857,57 +857,18 @@ fun DashboardScreen(
             }
         }
 
-        // Footer Pembuat
-        val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+        // Footer
         Spacer(modifier = Modifier.height(24.dp))
-        Column(
+        Text(
+            text = if (lang == "en") "Version 4.0.0" else "Versi 4.0.0",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = "Projects 10 By Curzy",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFFD0BCFF)
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "GitHub",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFFCAC4D0),
-                    modifier = Modifier
-                        .clickable { uriHandler.openUri("https://github.com/Curzyori/Float-Volume-10") }
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                )
-                Text(
-                    text = "•",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFF49454F)
-                )
-                Text(
-                    text = "Website",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFFCAC4D0),
-                    modifier = Modifier
-                        .clickable { uriHandler.openUri("https://curzy.my.id/") }
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                )
-            }
-            Text(
-                text = if (lang == "en") "Version 4.0.0" else "Versi 4.0.0",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color(0xFF49454F),
-                fontWeight = FontWeight.Medium
-            )
-        }
+            style = MaterialTheme.typography.bodySmall,
+            color = Color(0xFF49454F),
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
